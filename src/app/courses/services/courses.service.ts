@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Course } from '../model/course';
 import { HttpClient } from '@angular/common/http';
-import { take, tap } from "rxjs";
+import { delay, take, tap } from "rxjs";
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  private readonly API = '/assets/courses.json';
+  private readonly API = 'api/courses';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -16,7 +16,10 @@ export class CoursesService {
       .get<Course[]>(this.API)
       .pipe(
         take(1),
+        delay(2000),
         tap((courses) => console.log('Courses', courses)),
       )
   }
+
+
 }
